@@ -86,7 +86,7 @@ class WelcomePanel {
     /**
      * Creating a frame that contains content pane.
      */
-    void getWelcomeFrame() {
+    public void getWelcomeFrame() {
 
         frame = new JFrame("IEU");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -102,7 +102,7 @@ class WelcomePanel {
      * If there is number in string, return false;
      * if there is no number, return true.
      */
-    public static boolean isStringCorrect(String word) {
+    private static boolean isStringCorrect(String word) {
 
         String invalidChars = "0123456789!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
         String validChars = "ABCÇDEFGĞHIİJKLMNOÖPQRSŞTUÜVWXYZabcçdefgğhıijklmnoöpqrsştuüvwxyz";
@@ -130,7 +130,7 @@ class WelcomePanel {
      * If there is a string in numbers, return false;
      * if there is no string, return true.
      */
-    public static boolean isNumberCorrect(String number) {
+    private static boolean isNumberCorrect(String number) {
 
         String invalidChars = " !#$%&'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
@@ -149,7 +149,7 @@ class WelcomePanel {
      * if there is empty input, return false;
      * if there is no empty input, return true.
      */
-    public static boolean controlRegInfo(String data) {
+    private static boolean controlRegInfo(String data) {
 
         if(data.isEmpty()) {
             return false;

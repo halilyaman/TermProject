@@ -1,6 +1,6 @@
 package se115.master;
 
-public class Run {
+public class Main {
 
     public static void main (String[] args) {
 

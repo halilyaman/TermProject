@@ -30,24 +30,12 @@ public class Registration {
         return nameSurname;
     }
 
-    public void setNameSurname(String nameSurname) {
-        this.nameSurname = nameSurname;
-    }
-
     public String getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     public String getDepartment() {
         return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
     }
 
     /**
@@ -98,7 +86,7 @@ public class Registration {
     /**
      * Inner class which provides actionPerformed method for Save Information button
      */
-    private class SaveBtnListener extends Registration implements ActionListener {
+    private class SaveBtnListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {

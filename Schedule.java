@@ -11,8 +11,8 @@ class Schedule {
 
     final private JFrame frame = new JFrame("IUE");
     private JFrame tempMainFrame; // This provides to turn back safely to the Main Panel frame
-    public String[][] data = new String[12][6];
-    private final String[] columns = {"<html><h5>Lectures</h5></html>",
+    private String[][] data = new String[12][6];
+    private final String[] columnNames = {"<html><h5>Lectures</h5></html>",
             "<html><h5>Monday</h5></html>",
             "<html><h5>Tuesday</h5></html>",
             "<html><h5>Wednesday</h5></html>",
@@ -62,7 +62,7 @@ class Schedule {
         botContent.add(deleteCourseBtn);
         botContent.add(backToMenu);
 
-        content.add(makeTable(data, columns));
+        content.add(makeTable(data, columnNames));
         content.add(botContent);
 
         return content;
