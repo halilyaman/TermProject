@@ -4,6 +4,12 @@ public class Main {
 
     public static void main (String[] args) {
 
-        new WelcomePanel().getWelcomeFrame();
+        WelcomePanel welcomePanel = new WelcomePanel();
+        if(welcomePanel.isPreviousUser()) { // if there is user accessing before, show it
+            RegisteredUsers registeredUsers = new RegisteredUsers();
+            registeredUsers.build();
+        } else { // if first access, open welcome panel
+            welcomePanel.getWelcomeFrame();
+        }
     }
 }

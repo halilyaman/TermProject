@@ -5,6 +5,8 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 class WelcomePanel {
 
@@ -89,11 +91,11 @@ class WelcomePanel {
     public void getWelcomeFrame() {
 
         frame = new JFrame("IEU");
+        frame.setContentPane(content);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setContentPane(content);
         frame.setVisible(true);
     }
 
@@ -159,63 +161,87 @@ class WelcomePanel {
     }
 
     /**
+     * all registration transactions are happening in that method
+     * @param frame for closing current frame
+     */
+    public static void signUp(JFrame frame) {
+        frame.setVisible(false);
+        Registration r = new Registration();
+
+        // Checking whether there is any missing information or not
+        int counter1 = 0;
+        int counter2 = 0;
+        int counter3 = 0;
+        while (r.isDone()) {
+            if(counter1 == 0) {
+                r.inputNameSurname();
+                if (!controlRegInfo(r.getNameSurname())) {
+                    JOptionPane.showMessageDialog(null, "Name Surname is Empty"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                } else if (!isStringCorrect(r.getNameSurname())) {
+                    JOptionPane.showMessageDialog(null, "Name Surname is Invalid"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                }
+            }
+            counter1 = 1;
+            if(counter2 == 0) {
+                r.inputNumber();
+                if (!isNumberCorrect(r.getNumber())) {
+                    JOptionPane.showMessageDialog(null, "Number is Invalid"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                } else if (!controlRegInfo(r.getNumber())) {
+                    JOptionPane.showMessageDialog(null, "Number is Empty"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                }
+            }
+            counter2 = 1;
+            if(counter3 == 0) {
+                r.inputDepartment();
+                if (!controlRegInfo(r.getDepartment())) {
+                    JOptionPane.showMessageDialog(null, "Department is Empty"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                } else if (!isStringCorrect(r.getDepartment())) {
+                    JOptionPane.showMessageDialog(null, "Department is Invalid"
+                            , "Error Message", JOptionPane.WARNING_MESSAGE);
+                    continue;
+                }
+            }
+            counter3 = 1;
+            r.setDone(false); // Stop while loop
+        }
+        r.setContent();
+        r.setRegisterFrame();
+    }
+
+    public boolean isPreviousUser() {
+        try {
+            FileReader fileReader = new FileReader("users.txt");
+            BufferedReader reader = new BufferedReader(fileReader);
+            String line = null;
+            line = reader.readLine();
+            if(line == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * Inner class which provide action for Register button
      */
     private class RegisterBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            frame.setVisible(false);
-            Registration r = new Registration();
-
-            // Checking whether there is any missing information or not
-            int counter1 = 0;
-            int counter2 = 0;
-            int counter3 = 0;
-            while (r.isFull()) {
-                    if(counter1 == 0) {
-                        r.inputNameSurname();
-                        if (!controlRegInfo(r.getNameSurname())) {
-                            JOptionPane.showMessageDialog(null, "Name Surname is Empty"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        } else if (!isStringCorrect(r.getNameSurname())) {
-                            JOptionPane.showMessageDialog(null, "Name Surname is Invalid"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        }
-                    }
-                    counter1 = 1;
-                    if(counter2 == 0) {
-                        r.inputNumber();
-                        if (!isNumberCorrect(r.getNumber())) {
-                            JOptionPane.showMessageDialog(null, "Number is Invalid"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        } else if (!controlRegInfo(r.getNumber())) {
-                            JOptionPane.showMessageDialog(null, "Number is Empty"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        }
-                    }
-                    counter2 = 1;
-                    if(counter3 == 0) {
-                        r.inputDepartment();
-                        if (!controlRegInfo(r.getDepartment())) {
-                            JOptionPane.showMessageDialog(null, "Department is Empty"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        } else if (!isStringCorrect(r.getDepartment())) {
-                            JOptionPane.showMessageDialog(null, "Department is Invalid"
-                                    , "Error Message", JOptionPane.WARNING_MESSAGE);
-                            continue;
-                        }
-                    }
-                counter3 = 1;
-                    r.setFull(false); // Stop while loop
-            }
-            r.getContent();
-            r.setRegisterFrame();
+            signUp(frame);
         }
     }
 }
