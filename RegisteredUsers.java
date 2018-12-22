@@ -13,7 +13,7 @@ public class RegisteredUsers {
 
     private JFrame frame;
     private JPanel content;
-    private JPanel newUsersPanel;
+    private JPanel newUserPanel;
     private String previousUserName;
 
     public void build() {
@@ -24,7 +24,7 @@ public class RegisteredUsers {
         content.setLayout(new BorderLayout());
         content.setBorder(new TitledBorder(new LineBorder(Color.blue,5), "Registered Users"));
 
-        newUsersPanel = new JPanel();
+        newUserPanel = new JPanel();
 
         JButton previousUserButton = new JButton("<html><h1>" + previousUserName + "</h1></html>");
         previousUserButton.addActionListener(new PreviousUserListener());
@@ -32,10 +32,10 @@ public class RegisteredUsers {
         JButton newUserButton = new JButton("New User");
         newUserButton.addActionListener(new NewUserListener());
 
-        newUsersPanel.add(newUserButton);
+        newUserPanel.add(newUserButton);
 
         content.add(previousUserButton, BorderLayout.CENTER);
-        content.add(newUsersPanel, BorderLayout.SOUTH);
+        content.add(newUserPanel, BorderLayout.SOUTH);
 
         frame.add(content);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
